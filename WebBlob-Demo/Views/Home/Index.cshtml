@@ -1,8 +1,41 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<Image>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="row">
+    <div class="col-md-8">
+        <h2 class="title">Almacenamiento de imagenes</h2>
+        <div>
+            @using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <input type="file" name="file" class="form-control file-caption" required="">
+                <br />
+                <input type="submit" name="Submit" id="Submit" value="Almacenar" class="btn btn-info">
+            }
+        </div>
+    </div>
 </div>
+
+
+<h4 style="margin-top: 45px;margin-bottom: 25px">Lista de imágenes en la nube:</h4>
+
+<div class="row">
+@if (Model != null && Model.Any())
+{
+    @foreach (var img in Model)
+    {
+       @* <h3>@img.Nombre</h3>
+        <img style="width: 290px; height: 195px;margin-top:45px" src="@img.UrlImg" alt="img" />*@
+        <div class="col-md-4" style="margin-bottom: 25px">
+            <div class="card" style="width: 18rem;">
+                <img style="height: 315px" src="@img.UrlImg" class="card-img-top" alt="img">
+                <div class="card-body">
+                    <p class="text-center">@img.Nombre</p>
+                </div>
+            </div>
+        </div>
+    }
+}
+</div>
+
